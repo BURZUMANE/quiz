@@ -59,12 +59,3 @@ arr.forEach(elem => questionList.append(renderQuestion(elem)));
 };
 mapQuestions(questions);
 
-
-
-// shit code
-// function removeLi(e){
-//     e.target.remove(e);
-// }
-
-// const shitList = document.querySelector(".shit-list");
-// shitList.addEventListener('click', removeLi);

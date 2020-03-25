@@ -6,7 +6,6 @@ const questionList = document.querySelector('.questions');
 
 const handleSubmit = function(event){
     event.preventDefault();
-    form.ele
 }
 
 form.addEventListener('click', handleSubmit);
@@ -15,55 +14,57 @@ form.addEventListener('click', handleSubmit);
 // RENDERS
 // ANSWERS
 const renderAnswers = function(arr, id){
-    let answers = ''
-    for(const i of Object.entries(arr)){
+    let answerFragment = document.createDocumentFragment();
 
-       answers += `
-       <li class="questions__answer-item">
-        <input type="radio" name="${id}" value="${i[0]}"/>
-        <span class="answer-span">${i[0]}</span>: ${i[1]}
-       </li>`
+    for(const i of Object.entries(arr)){
+       const answerLi = document.createElement('li');
+       answerLi.classList.add('questions__answer-item"');
+       const answerLabel = document.createElement('label');
+       const input = document.createElement('input');
+       input.classList.add('radio-toggle');
+       input.type = 'radio';
+       input.name = id;
+       answerLabel.appendChild(input);
+       answerLabel.append(`${i[0]} : ${i[1]}`);
+       answerLi.appendChild(answerLabel);
+
+       answerFragment.appendChild(answerLi);
     }
-    return answers;
+
+    return answerFragment;
 }
 
-
+// ${renderAnswers(answers, id)}
 const renderQuestion = function( {id, question, answers:{a, b, c, d}, answers,correctAnswer }){
-    let result = `
-    <li class="questions__item">
-        <h3 class="questions__title">${question}</h3>
-        <ul class="questions__answer">
-        ${renderAnswers(answers, id)}
-        <ul>
-    </li>
-    `
-    // CONSOLES
-    // console.log(result);
-    // console.log(`ID: ${id} 
-    // question:${question}
-    // ${a}`);
-    // renderAnswers(answers);
-    return result;
+    let fragment = document.createDocumentFragment();
+    const newLi = document.createElement('li');
+    const questionTitle = document.createElement('h3');
+    questionTitle.classList.add('questions__title"');
+    questionTitle.textContent = question;
+    const answersList = document.createElement('ul');
+    answersList.classList.add('questions__answer');
+    answersList.appendChild(renderAnswers(answers, id));
+    newLi.append(questionTitle);
+    newLi.append(answersList);
+    fragment.appendChild(newLi);
+    return fragment;
+    
+
 };
 
+// ${renderAnswers(answers)} GOES UP
+
 const mapQuestions = function(arr){
-    let result = ""
-    arr.map(item => result += renderQuestion(item));
-    return result;
-}
+arr.forEach(elem => questionList.append(renderQuestion(elem)));
+};
+mapQuestions(questions);
 
 
-// mapQuestions(questions);
-// for(const elem of questions){
-//     renderQuestion(elem);
+
+// shit code
+// function removeLi(e){
+//     e.target.remove(e);
 // }
 
-// renderQuestion(questions[0]);
-
-
-
-
-// console.log(renderAnswers(questions[0].answers));
-
-console.log(mapQuestions(questions));
-questionList.insertAdjacentHTML('afterbegin', mapQuestions(questions));
+// const shitList = document.querySelector(".shit-list");
+// shitList.addEventListener('click', removeLi);

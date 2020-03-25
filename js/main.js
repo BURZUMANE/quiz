@@ -22,8 +22,11 @@ const renderAnswers = function(arr, id){
        const answerLabel = document.createElement('label');
        const input = document.createElement('input');
        input.classList.add('radio-toggle');
-       input.type = 'radio';
-       input.name = id;
+    //    elem.setAttribute(name, value) - устанавливает атрибут
+       input.setAttribute('type', 'radio');
+       input.setAttribute('name', id);
+       input.setAttribute('value', i[0]);
+    //    input.setAttribute('checked', false);
        answerLabel.appendChild(input);
        answerLabel.append(`${i[0]} : ${i[1]}`);
        answerLi.appendChild(answerLabel);
@@ -42,12 +45,22 @@ const renderQuestion = function( {id, question, answers:{a, b, c, d}, answers,co
     questionTitle.classList.add('questions__title"');
     questionTitle.textContent = question;
     const answersList = document.createElement('ul');
+    answersList.addEventListener('click', e => {
+        const isCheked = e.currentTarget.querySelectorAll('input');
+        for(const elem of isCheked){
+            if(elem.getAttribute('checked') === true){
+                console.log('shit');
+                elem.setAttribute('checked', false);
+            }
+        }
+        e.target.setAttribute('checked', true);
+    })
     answersList.classList.add('questions__answer');
     answersList.appendChild(renderAnswers(answers, id));
     newLi.append(questionTitle);
     newLi.append(answersList);
     fragment.appendChild(newLi);
-    return fragment;
+    return fragment;    
     
 
 };

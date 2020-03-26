@@ -25,7 +25,7 @@ export default [{
             a: "Angular",
             b: "jQuery",
             c: "RequireJS",
-            d: "ESLint"
+            d: "ESLint",
         },
         correctAnswer: "d"
     }
